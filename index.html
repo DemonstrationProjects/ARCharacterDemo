@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./libs/aframe.min.js"></script>
+    <script src="./libs/mindar-image-aframe.prod.js"></script>
+	<style>
+        body { margin: 0; overflow: hidden; }
+        #soundButton {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          padding: 15px 30px;
+          font-size: 20px;
+          background-color: #28a745;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          z-index: 101;
+        }
+    </style>
+  </head>
+  <body>
+    <button id="soundButton">Включить звук</button>
+    <a-scene 
+      mindar-image="imageTargetSrc: ./targets.mind;"
+      mindar-image="warmupTolerance: 5; missTolerance: 15; filterMinCF: 0.01; filterBeta: 300"
+      color-space="sRGB" 
+      renderer="colorManagement: true, physicallyCorrectLights" 
+      vr-mode-ui="enabled: false" 
+      device-orientation-permission-ui="enabled: false"
+      id="scene">      
+      <a-assets>
+        <a-asset-item id="avatarModel" src="./Character.glb"></a-asset-item>
+      </a-assets>
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-entity mindar-image-target="targetIndex: 0" id="target">
+        <a-gltf-model id="rocket" rotation="0 0 0" position="0 -1 0" scale="1 1 1" src="#avatarModel"> </a-gltf-model>
+      </a-entity>
+    </a-scene>
+    <audio id="bgSound" loop autoplay>
+      <source src="BGSound.mp3" type="audio/mp3">
+      Ваш браузер не поддерживает элемент audio.
+    </audio>    
+    <script>
+      let clock = new THREE.Clock();
+      let mixer = null;
+      let mesh = null;
+      let bgSound = document.getElementById("bgSound");
+      let rocketAnim;
+      let rocket;
+
+      soundButton.addEventListener("click", () => {
+        soundButton.style.display = 'none';
+        bgSound.volume = 0.2;
+        bgSound.play();
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const target = document.querySelector("#target");
+        rocket = document.querySelector("#rocket");
+        
+
+        rocket.addEventListener("model-loaded", () => {
+          console.log("The model is loaded!");
+          const sceneEl = document.querySelector('a-scene');
+          mesh = rocket.getObject3D("mesh");
+          mixer = new THREE.AnimationMixer(mesh);
+          let clips = mesh.animations;
+
+          if (clips.length > 0) {
+            let anim = mixer.clipAction(clips[0]);
+            anim.play();
+          } else {
+            console.log("Animation not found");
+          }
+        });
+
+        target.addEventListener("targetFound", () => {
+          console.log("The target has been found! Starting the animation.");
+          
+        });
+
+        target.addEventListener("targetLost", () => {
+          console.log("The target is lost! Stop the animation.");
+        });
+      });
+
+      function animate() { 
+        requestAnimationFrame(animate);
+        if (mixer) {
+          let delta = Math.min(clock.getDelta(), 0.1);
+          mixer.update(delta);
+        }
+      }
+      animate();
+    </script>
+  </body>
+</html>
