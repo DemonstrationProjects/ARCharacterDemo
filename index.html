@@ -4,22 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="./libs/aframe.min.js"></script>
     <script src="./libs/mindar-image-aframe.prod.js"></script>
-	<style>
-        body { margin: 0; overflow: hidden; }
-        #soundButton {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          padding: 15px 30px;
-          font-size: 20px;
-          background-color: #28a745;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          z-index: 101;
-        }
-    </style>
+
+    <script type="module" crossorigin src="./assets/index-j7lqjM6A.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-dHsPTj6C.css">
   </head>
   <body>
     <button id="soundButton">Включить звук</button>
@@ -34,107 +21,8 @@
       <a-gltf-model id="trackedObject" scale="500 500 500" src="#characterAsset"> </a-gltf-model>
     </a-scene>
     <audio id="bgSound" loop autoplay>
-      <source src="BGSound.mp3" type="audio/mp3">
+      <source src="./assets/BGSound-2DiaeIIo.mp3" type="audio/mp3">
       Ваш браузер не поддерживает элемент audio.
-    </audio>
-    <script>
-      /*** === Constants === ***/
-      const anchorEl = document.querySelector('#anchor');
-      const soundButton = document.querySelector("#soundButton");
-      const target = document.querySelector("[mindar-image-target]");
-      const trackedObjectEl = document.querySelector("#trackedObject");
-      const bgSound = document.getElementById("bgSound");
-      
-      const anchor = anchorEl.object3D;
-      const trackedObject = trackedObjectEl.object3D;
-      const anchorPosition = new THREE.Vector3();
-      const anchorRotation = new THREE.Quaternion();
-      
-      const STOP_DISTANCE = 1;
-      const INITIAL_MOVE_SPEED = 1;
-      const FINAL_MOVE_SPEED = 0.1;
-
-      const SOUND_VOLUME = 0.01;
-
-      /*** === Variables === ***/
-      let speedMovementToAnchor = INITIAL_MOVE_SPEED;
-      let isTracking = false;
-      let clock = new THREE.Clock();
-      let mixer = null;
-
-      /*** === Init=== ***/
-      trackedObjectEl.addEventListener("model-loaded", () => {
-          console.log("The model is loaded!");
-          mixer = new THREE.AnimationMixer(trackedObject);
-          let clips = trackedObject.children[0].animations;
-
-          if (clips.length > 0) {
-              let anim = mixer.clipAction(clips[0]);
-              anim.play();
-          } else {
-              console.log("Animation not found");
-          }
-      });
-
-      /*** === Functions === ***/
-      function enableSound() {
-          bgSound.muted = false;
-          bgSound.volume = SOUND_VOLUME;
-          bgSound.play();
-          soundButton.style.display = "none";
-      }
-
-      function updateAnimationMixer() {
-        if (mixer) {
-          let delta = clock.getDelta();
-          mixer.update(delta);
-        }
-      }
-
-      function updateObjectTransform() {
-        if (!isTracking) return;
-        
-        anchor.updateMatrixWorld();
-        anchor.getWorldPosition(anchorPosition);
-        
-        const distance = trackedObject.position.distanceTo(anchorPosition);
-        
-        if (distance > STOP_DISTANCE) {
-            trackedObject.position.lerp(anchorPosition, speedMovementToAnchor);
-        } else {
-            trackedObject.position.copy(anchorPosition);
-        }
-        
-        anchor.getWorldQuaternion(anchorRotation);
-        trackedObject.quaternion.slerp(anchorRotation, speedMovementToAnchor);
-
-        if (distance <= STOP_DISTANCE && !trackedObject.visible) {
-            trackedObject.visible = true;
-            speedMovementToAnchor = FINAL_MOVE_SPEED;
-        }
-      }
-
-      function animate() {
-        requestAnimationFrame(animate);
-        updateAnimationMixer();
-        updateObjectTransform();
-      }
-
-      /*** === Event listeners === ***/
-      target.addEventListener("targetFound", () => {
-        isTracking = true;
-      });
-
-      target.addEventListener("targetLost", () => {
-        isTracking = false;
-        speedMovementToAnchor = INITIAL_MOVE_SPEED;
-        trackedObject.visible = false;
-      });
-
-      soundButton.addEventListener("click", enableSound);
-
-      // Start loop
-      animate();
-    </script>
+    </audio>	
   </body>
 </html>
