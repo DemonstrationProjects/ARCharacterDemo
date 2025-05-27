@@ -5,8 +5,8 @@
     <script src="./libs/aframe.min.js"></script>
     <script src="./libs/mindar-image-aframe.prod.js"></script>
 
-    <script type="module" crossorigin src="./assets/index-j7lqjM6A.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-dHsPTj6C.css">
+    <script type="module" crossorigin src="./assets/index-BaKhu4eP.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BIrX8EAI.css">
   </head>
   <body>
     <button id="soundButton">Включить звук</button>
@@ -14,15 +14,22 @@
       <a-assets>
         <a-asset-item id="characterAsset" src="./Character.glb"></a-asset-item>
       </a-assets>
+      <a-assets>
+        <video id="video" src="./assets/video-C1VUlXko.mp4" loop playsinline webkit-playsinline muted></video>
+      </a-assets>
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-entity id="anchor" position="0 -1 0" rotation="0 0 0"></a-entity>
+        <a-entity id="anchor" position="0 -1 0" rotation="0 90 0"></a-entity>
       </a-entity>
       <a-gltf-model id="trackedObject" scale="500 500 500" src="#characterAsset"> </a-gltf-model>
     </a-scene>
     <audio id="bgSound" loop autoplay>
-      <source src="./assets/BGSound-2DiaeIIo.mp3" type="audio/mp3">
+      <source src="./assets/BGSound-D1IRTihH.mp3" type="audio/mp3">
       Ваш браузер не поддерживает элемент audio.
-    </audio>	
+    </audio>
+    <div id="moreInfoContainer">
+      <button id="moreInfoButton">Узнать больше</button>
+    </div>
+	
   </body>
 </html>
