@@ -5,10 +5,11 @@
     <script src="./libs/aframe.min.js"></script>
     <script src="./libs/mindar-image-aframe.prod.js"></script>
 
-    <script type="module" crossorigin src="./assets/index-BaKhu4eP.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BIrX8EAI.css">
+    <script type="module" crossorigin src="./assets/index-DzphiEXP.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-XtaXWQd2.css">
   </head>
   <body>
+    <div id="scanPrompt">Наведите камеру на визитку</div>
     <button id="soundButton">Включить звук</button>
     <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
@@ -21,15 +22,14 @@
       <a-entity mindar-image-target="targetIndex: 0">
         <a-entity id="anchor" position="0 0 0" rotation="90 0 0"></a-entity>
       </a-entity>
-      <a-gltf-model id="trackedObject" scale="500 500 500" src="#characterAsset"> </a-gltf-model>
+      <a-gltf-model id="trackedObject" scale="1000 1000 1000" src="#characterAsset"> </a-gltf-model>
     </a-scene>
     <audio id="bgSound" loop autoplay>
       <source src="./assets/BGSound-D1IRTihH.mp3" type="audio/mp3">
       Ваш браузер не поддерживает элемент audio.
     </audio>
     <div id="moreInfoContainer">
-      <button id="moreInfoButton">Узнать больше</button>
-    </div>
-	
+      <button id="moreInfoButton">Увидеть больше</button>
+    </div>	
   </body>
 </html>
