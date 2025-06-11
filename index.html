@@ -5,10 +5,14 @@
     <script src="./libs/aframe.min.js"></script>
     <script src="./libs/mindar-image-aframe.prod.js"></script>
 
-    <script type="module" crossorigin src="./assets/index-Zk089opt.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-XtaXWQd2.css">
+    <script type="module" crossorigin src="./assets/index-Dhz6jylk.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BIK5b_1m.css">
   </head>
   <body>
+    <div id="briefingScreen">
+      <div id="briefingText">Наведите камеру на визитку</div>
+      <button id="briefingOkButton">OK</button>
+    </div>
     <div id="scanPrompt">Наведите камеру на визитку</div>
     <button id="soundButton">Включить звук</button>
     <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
@@ -20,9 +24,9 @@
       </a-assets>
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-entity id="anchor" position="0 0 0" rotation="90 0 0"></a-entity>
+        <a-entity id="anchor" position="0 0 0" rotation="0 0 0"></a-entity>
       </a-entity>
-      <a-gltf-model id="trackedObject" scale="1000 1000 1000" src="#characterAsset"> </a-gltf-model>
+      <a-gltf-model id="trackedObject" scale="1 1 1" src="#characterAsset"> </a-gltf-model>
     </a-scene>
     <audio id="bgSound" loop autoplay>
       <source src="./assets/BGSound-D1IRTihH.mp3" type="audio/mp3">
