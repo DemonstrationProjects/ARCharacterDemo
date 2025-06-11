@@ -5,10 +5,16 @@
     <script src="./libs/aframe.min.js"></script>
     <script src="./libs/mindar-image-aframe.prod.js"></script>
 
-    <script type="module" crossorigin src="./assets/index-DzphiEXP.js"></script>
+    <script type="module" crossorigin src="./assets/index-mgS11w6t.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-XtaXWQd2.css">
   </head>
   <body>
+    <!-- <div id="loadingScreen">
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div id="loadingText">Загрузка 0%</div>
+    </div> -->
     <div id="scanPrompt">Наведите камеру на визитку</div>
     <button id="soundButton">Включить звук</button>
     <a-scene mindar-image="imageTargetSrc: targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
@@ -30,6 +36,7 @@
     </audio>
     <div id="moreInfoContainer">
       <button id="moreInfoButton">Увидеть больше</button>
-    </div>	
+    </div>
+	
   </body>
 </html>
